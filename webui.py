@@ -18,6 +18,7 @@ parser.add_argument("--verbose", action="store_true", default=False, help="Enabl
 parser.add_argument("--port", type=int, default=7860, help="Port to run the web UI on")
 parser.add_argument("--host", type=str, default="127.0.0.1", help="Host to run the web UI on")
 parser.add_argument("--model_dir", type=str, default="checkpoints", help="Model checkpoints directory")
+parser.add_argument("--config", type=str, default="checkpoints/config-1.5.yaml", help="Model config file")
 cmd_args = parser.parse_args()
 
 if not os.path.exists(cmd_args.model_dir):
@@ -42,7 +43,7 @@ from tools.i18n.i18n import I18nAuto
 
 i18n = I18nAuto(language="zh_CN")
 MODE = 'local'
-tts = IndexTTS(model_dir=cmd_args.model_dir, cfg_path=os.path.join(cmd_args.model_dir, "config.yaml"),)
+tts = IndexTTS(model_dir=cmd_args.model_dir, cfg_path=cmd_args.config,)
 
 
 os.makedirs("outputs/tasks",exist_ok=True)
