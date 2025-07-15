@@ -18,7 +18,9 @@ parser.add_argument("--verbose", action="store_true", default=False, help="Enabl
 parser.add_argument("--port", type=int, default=7860, help="Port to run the web UI on")
 parser.add_argument("--host", type=str, default="127.0.0.1", help="Host to run the web UI on")
 parser.add_argument("--model_dir", type=str, default="checkpoints", help="Model checkpoints directory")
+parser.add_argument("--fp16", action="store_true", default=True, help="Use FP16 for inference if available")
 parser.add_argument("--config", type=str, default="checkpoints/config-1.5.yaml", help="Model config file")
+parser.add_argument("--device", type=str, default=None, help="Device to run the model on (cpu, cuda, mps)." )
 cmd_args = parser.parse_args()
 
 if not os.path.exists(cmd_args.model_dir):
@@ -43,7 +45,7 @@ from tools.i18n.i18n import I18nAuto
 
 i18n = I18nAuto(language="zh_CN")
 MODE = 'local'
-tts = IndexTTS(model_dir=cmd_args.model_dir, cfg_path=cmd_args.config,)
+tts = IndexTTS(model_dir=cmd_args.model_dir, cfg_path=cmd_args.config, is_fp16=cmd_args.fp16, device=cmd_args.device)
 
 
 os.makedirs("outputs/tasks",exist_ok=True)
