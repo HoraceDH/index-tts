@@ -47,7 +47,7 @@ def main():
     if args.device is None:
         if torch.cuda.is_available():
             args.device = "cuda:0"
-        elif torch.mps.is_available():
+        elif torch.backends.mps.is_available():
             args.device = "mps"
         else:
             args.device = "cpu"
